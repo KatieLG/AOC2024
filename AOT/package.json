@@ -1,0 +1,13 @@
+{
+  "name": "aot2024",
+  "version": "1.0.0",
+  "description": "Solutions to Advent of TypeScript 2024",
+  "directories": {
+    "solutions": "solutions",
+    "test": "tests"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "type-testing": "^0.2.0"
+  }
+}
