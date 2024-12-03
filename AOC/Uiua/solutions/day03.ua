@@ -2,22 +2,22 @@ Input ← (
   &fras "./data/day03.txt"
 )
 
-MultRegex   ← "mul\\((\\d+),(\\d+)\\)"
-DoDontRegex ← "(do)\\(\\)|(don't)\\(\\)"
-
-Include ← /↥∈□"do"
-Exclude ← /↥∈□"don't"
-Mult    ← /◇×⍚⍣⋕0↙2
+ProductsRegex ← "mul\\((\\d+),(\\d+)\\)" # matches multiplications
+Match         ← ≡↘₁⬚@ regex              # get matches for a regex pattern
+SumProducts ← (
+  Match ProductsRegex # find multiplications
+  ≡(×°⊟⋕)             # uncouple pairs and multiply them 
+  /+                  # sum everything
+)
 
 # Part A
-Input           # get data
-regex MultRegex # find multiplications
-/+≡(×°⊟⋕↘₁)     # sum them
+Input
+SumProducts
 
 # Part B
-Input                                 # get data
-⊂"do()"                               # start with do()
-⬚@ regex $"_|_" MultRegex DoDontRegex # find mul/do/dont
-≡(+⊃(Include|¯Exclude|Mult)↘₁)        # find enable/disable
->0\(⨬∘⋅∘≠0,)                          # mark products to keep
-/+▽                                   # keep and sum
+Input             # get data
+¬⦷"do()".         # mark by do() for group partition
+⊜(▽\×¬⌕"don't()". # drop from first don't() onwards for each group
+  SumProducts
+)
+/+
