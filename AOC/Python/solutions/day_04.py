@@ -1,5 +1,3 @@
-from functools import cached_property
-
 from models.aoc_solution import AOCSolution
 
 
@@ -9,17 +7,11 @@ class Day04(AOCSolution):
         "part_two": {"sample": 9, "data": 2041},
     }
 
-    @cached_property
-    def parsed_data(self) -> list[str]:
-        return self.data.splitlines()
-
     def __post_init__(self):
+        self.parsed_data = self.data.splitlines()
         self.width = len(self.parsed_data[0])
         self.height = len(self.parsed_data)
-
-    @cached_property
-    def columns(self) -> list[str]:
-        return ["".join(col) for col in zip(*self.parsed_data)]
+        self.columns = ["".join(col) for col in zip(*self.parsed_data)]
 
     def _diagonals(self, *, size: int, is_left: bool) -> list[str]:
         direction = 1 if is_left else -1
