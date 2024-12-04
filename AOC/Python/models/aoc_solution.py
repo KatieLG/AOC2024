@@ -21,6 +21,9 @@ class AOCSolution(ABC):
         else:
             filename = "dataset"
         self.data = Path(self.root, f"{folder}/{filename}.txt").read_text()
+        self.__post_init__()
+
+    def __post_init__(self) -> None: ...
 
     @abstractmethod
     def part_one(self) -> int: ...

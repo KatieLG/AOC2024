@@ -25,6 +25,18 @@ For more granular use of the CLI for a specific day, the commands are:
 python helpers fetch --day <day> --part <part>
 ```
 
+## Helpers
+
+To run the code for the current day:
+```bash
+make run
+```
+
+To run the code for the current day with performance profiling:
+```bash
+make profile
+```
+
 ## Formatting and Linting
 
 Formatting and linting is done with ruff and can be run with
