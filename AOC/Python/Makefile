@@ -16,7 +16,7 @@ today-p2:
 	uv run python -m helpers fetch --part 2 --day $(day)
 
 run:
-	uv run python solutions.day_$(day).py
+	uv run python -m solutions.day_$(day)
 
 profile:
 	uv run python -m cProfile -s tottime solutions/day_$(day).py
