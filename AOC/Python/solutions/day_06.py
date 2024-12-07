@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from models.aoc_solution import AOCSolution
 
 
@@ -33,7 +31,6 @@ class Day06(AOCSolution):
                 return positions, True
             states.add((x, y, dx, dy))
         return positions, False
-
 
     def part_one(self) -> int:
         """Turn 90deg at every # until moving off the grid"""
