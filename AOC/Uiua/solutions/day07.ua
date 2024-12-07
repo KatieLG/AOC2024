@@ -7,29 +7,18 @@ Input ← (
 
 Totals ← ≡⊢Input
 Nums   ← ≡⊣Input
-Apply! ← ≡⊂⊙¤^0°⊟⊃↙↘2 # Apply operations
 
-Combinations₁ ← |1 (
-  =1⊸⧻              # length of nums
-  ⨬(Apply![⊃+×]     # get options for first two nums
-    ♭≡Combinations₁ # Recursively make all totals
-  | ⊢               # output final total
-  )                 # possible combinations
-)
-Combinations₂ ← |1 (
-  =1⊸⧻
-  ⨬(Apply![⊃(+|×|⍜∩°⋕⊂)] # same again with join option
-    ♭≡Combinations₂
-  | ⊢
-  )
+Combinations! ← (
+  ⍚(×⊸∈♭/[^0]) # get all valid totals with operations
+  /◇+          # sum them
 )
 
 # Part A
 Totals
 Nums
-/◇+⍚×⊸⍚(∈Combinations₁)
+Combinations!⊃+× # combos with + and ×
 
 # Part B
 Totals
 Nums
-/◇+⍚×⊸⍚(∈Combinations₂)
+Combinations!⊃(+|×|∵⍜∩°⋕⊂) # with + and × and joining
