@@ -17,17 +17,24 @@ Neis ← (
   ▽⤚Check          # keep unobstructed positions
 )
 FindPath ← (
-  .
-  ⊂[¯1 0]⊢⊚⌕@^ # start pos and direction
+  ⊂[¯1 0]⊢⊚⊸⌕@^ # start pos and direction
   °□⊢ astar(
     1¤⊢Neis  # neighbours with no rotation = lowest cost
   | 0        # heuristic of 0
   | ¬Valid↘₂ # keep going until out of grid
   )
   ⊙◌  # discard the cost
-  ↘¯1 # the last one is out of the grid
+  ↘¯1 # discard last position which is outside the grid
+)
+IsLoop ← (
+  ⍣(⋅0FindPath)1 # try to find a path out, else its a loop
 )
 
 # Part A
 ◴≡↘₂FindPath Input # unique path positions
-⧻                  # count 
+⟜(&p⧻)             # count (keep positions for part B)
+
+# Part B
+≡⍜⊡⋅@#⊙[Input] # put obstacles in each part A position
+↘1             # but not starting position
+&p/+≡IsLoop    # sum up the loops
