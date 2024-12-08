@@ -4,24 +4,22 @@ Input ← (
   ▽≠,@\r  # remove carriage return
   ⊜∘≠,@\n # split on newlines
 )
-W        ← ⧻⊢Input    # width
-H        ← ⧻Input     # height
-SP       ← ⊢⊚⌕@^Input # start position
-SD       ← [¯1 0]     # start direction 
-R        ← ⍜⊣¯⇌       # rotate direction
-N ← (
-  ⍜⊙↘₁(⊂⟜+⍥R⊙(⊃↙↘2)) # next coord by rotating x times
-  ⍜⊢+₁               # increment the counter 
-)
-Valid    ← /↧[⊃⊓(<W|<H)∩≥₀°⊟] # valid coordinate
-Check    ← ≠@#⍣⊡@.⊙Input≡↘3   # check neighbours not #
+W ← ⧻⊢Input            # width
+H ← ⧻Input             # height
+R ← ⍜⊣¯⇌               # rotate direction
+N ← ⍜⊙↘₁(⊂⟜+⍥R⊙(⊃↙↘2)) # next coord by rotating x times
+
+Valid ← /↧[⊃⊓(<W|<H)∩≥₀°⊟] # valid coordinate
+Check ← ≠@#⍣⊡@.≡↘3         # check neighbours not #
 Neis ← (
   [⊃(N0|N1|N2|N3)] # neighbours
-  ▽⊸Check          # keep unobstructed positions
+  ≡⍜⊢+₁            # increment counter
+  ▽⤚Check          # keep unobstructed positions
 )
 FindPath ← (
-  ⊂SD SP # start pos and direction
-  ⊂0     # counter (to avoid astar omitting loops)
+  .
+  ⊂[¯1 0]⊢⊚⌕@^ # start pos and direction
+  ⊂0           # counter (to avoid astar omitting loops)
   °□⊢ astar(
     °⊏ Neis  # neighbours with no rotation = lowest cost
   | 0        # heuristic of 0
@@ -32,4 +30,5 @@ FindPath ← (
 )
 
 # Part A
-⧻◴≡↘₃FindPath # how many unique path positions
+◴≡↘₃FindPath Input # unique path positions
+⧻                  # count 
