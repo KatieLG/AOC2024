@@ -54,16 +54,14 @@ class Day08(AOCSolution):
     ) -> set[Coord]:
         """Iterate over nodes with antinode finding function"""
         union = set()
-        for key, coords in self.nodes.items():
+        for coords in self.nodes.values():
             for i, (x, y) in enumerate(coords):
                 for x2, y2 in coords[i + 1 :]:
                     union.update(find_func(x, y, x2, y2))
         return union
 
     def part_one(self) -> int:
-        antinodes = self.antinode_union(
-            lambda x, y, x2, y2: self.find_antinodes(x, y, x2, y2)
-        )
+        antinodes = self.antinode_union(self.find_antinodes)
         return len(antinodes)
 
     def part_two(self) -> int:
