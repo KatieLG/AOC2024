@@ -10,15 +10,29 @@ Beacons ← ▽≠,@.◴/◇⊂Input # All beacon characters
 
 Coords ← ⊚⌕⊙Input          # Find coords of beacon
 Valid  ← ↧∩↧⊃⊓(<W|<H)∩≥₀°⊟ # is coord in grid
-Antinodes ← (
-  ◡-°⊟    # get differences
+AN ← (
+  ◡-°⊟    # get difference
   [⊓-+⟜:] # go either side for antinodes
+)
+DirectedAN ← (
+  ×⊙(-°⊟⊸↙₂)            # get directed difference
+  ⋅↘₁⍢(⊙⊂⟜+⊙⊸⊢|Valid⋅⊢) # keep adding until out of grid
+)
+AntinodeUnion! ← (
+  ⍚(Coords   # find all coords
+    ^0⧅<2    # find antinodes for each pair
+    ▽⊸≡Valid # keep valid ones
+  )
+  ⧻◴/◇⊂ # count up the unique antinodes
 )
 
 # Part A
 Beacons
-⍚(Coords          # find all coords
-  ♭₂≡Antinodes⧅<2 # find antinodes
-  ▽⊸≡Valid        # keep valid ones
+AntinodeUnion!(♭₂≡AN)
+
+# Part B
+Beacons
+AntinodeUnion!(
+  ⍚(⊂⊃(DirectedAN1|DirectedAN¯1)) # nodes either side
+  /◇⊂                             # joined up
 )
-⧻◴/◇⊂ # count up the unique antinodes
