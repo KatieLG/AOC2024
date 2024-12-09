@@ -1,17 +1,16 @@
 Input ← &fras "./data/day09.txt"
 
 Parse ← (
-  ∵⋕           # convert to numbers
-  ⊃(◿₂|⌊÷2)°⊏  # get file vs empty and ids
-  ▽:⨬(⊢°⋕|⋅@.) # keep the correct number of each
+  ∵⋕          # convert to numbers
+  ⊃(◿₂|⌊÷₂)°⊏ # get file or empty and ids
+  ▽:⍥⋅∞       # keep for each (with infinity as dots)
 )
-Group      ← ⊜□+1⊛.
-GroupLen   ← ⊜⧻+1⊛.
-Compact    ← ⍜⊏⇌⊸[⊃(/↥⊚≠@.|⊗@.)] # one compacting step
-NotCompact ← /↥⌕@./◇⊂↘₋₁Group    # are dots at the end
-Checksum   ← /+×°⊏∵⋕▽≠,@.
+Checksum ← /+×°⊏▽≠,∞
 
 # Part A
 Parse Input
-⍢(Compact|NotCompact) # Keep compacting while not compact
+⊸⊃(⊚⌕∞|⇌⊚¬⌕∞) # get number and dot positions
+∩↙⟜:↧◡∩⧻      # match on length
+∩↙⟜:⊢⊚◡<      # keep those that would be a backward move
+⍜⊏⇌⊂⇌         # perform moves
 Checksum
