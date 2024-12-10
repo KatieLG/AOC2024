@@ -1,10 +1,14 @@
+from typing import Generator
+
 from models.aoc_solution import AOCSolution
+
+type Coord = tuple[int, int]
 
 
 class Day10(AOCSolution):
     EXPECTED = {
-        "part_one": {"sample": 0, "data": 0},
-        "part_two": {"sample": 0, "data": 0},
+        "part_one": {"sample": 36, "data": 430},
+        "part_two": {"sample": 81, "data": 928},
     }
 
     def __post_init__(self) -> None:
@@ -18,7 +22,7 @@ class Day10(AOCSolution):
             if cell == 0
         ]
 
-    def nbrs(self, x: int, y: int) -> list[tuple[int, int]]:
+    def nbrs(self, x: int, y: int) -> list[Coord]:
         """Get the valid neighbours of a cell"""
         return [
             (x + dx, y + dy)
@@ -28,25 +32,26 @@ class Day10(AOCSolution):
             and self.grid[y + dy][x + dx] == 1 + self.grid[y][x]
         ]
 
-    def find_trails(self, x: int, y: int) -> set[tuple[int, int]]:
-        """Find all reachable 9s from the start position"""
+    def find_trails(
+        self, x: int, y: int, current: list[Coord]
+    ) -> Generator[list[Coord], None, None]:
+        """Find paths to all reachable 9s from the start position"""
+        current.append((x, y))
         if self.grid[y][x] == 9:
-            return {(x, y)}
-        trails: set[tuple[int, int]] = set()
-        for nbr in self.nbrs(x, y):
-            x, y = nbr
-            trails.update(self.find_trails(x, y))
-        return trails
+            yield current
+        for x2, y2 in self.nbrs(x, y):
+            yield from self.find_trails(x2, y2, current)
 
     def part_one(self) -> int:
-        trail_scores: list[int] = []
-        for start in self.heads:
-            x, y = start
-            trail_scores.append(len(self.find_trails(x, y)))
-        return sum(trail_scores)
+        """Score of a trail is unique end positions"""
+        return sum(
+            len({trail[-1] for trail in self.find_trails(x, y, [])})
+            for x, y in self.heads
+        )
 
     def part_two(self) -> int:
-        return 0
+        """Rating of a trail is unique paths"""
+        return sum(len(list(self.find_trails(x, y, []))) for x, y in self.heads)
 
 
 if __name__ == "__main__":
