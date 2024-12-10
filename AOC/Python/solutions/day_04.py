@@ -44,11 +44,10 @@ class Day04(AOCSolution):
         return self.find_occurences("XMAS")
 
     def part_two(self) -> int:
-        count = 0
-        for left, right in zip(self.left_diagonals(3), self.right_diagonals(3)):
-            if left in {"MAS", "SAM"} and right in {"MAS", "SAM"}:
-                count += 1
-        return count
+        return sum(
+            left in {"MAS", "SAM"} and right in {"MAS", "SAM"}
+            for left, right in zip(self.left_diagonals(3), self.right_diagonals(3))
+        )
 
 
 if __name__ == "__main__":

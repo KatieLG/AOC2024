@@ -16,10 +16,7 @@ class AOCSolution(ABC):
 
     def set_data(self, part: str, dataset: Dataset) -> None:
         folder = f"data/day_{self.day:02d}"
-        if dataset == Dataset.SAMPLE:
-            filename = f"sample_{part}"
-        else:
-            filename = "dataset"
+        filename = f"sample_{part}" if dataset == Dataset.SAMPLE else "dataset"
         self.data = Path(self.root, f"{folder}/{filename}.txt").read_text()
         self.__post_init__()
 

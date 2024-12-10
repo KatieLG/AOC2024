@@ -7,8 +7,8 @@ from helpers.generate_files import generate_initial_files, generate_sample
 
 def generate(args: Namespace) -> None:
     """Generate files within the month of december"""
-    today = datetime.today()
-    if not (today.year == 2024 and today.month == 12):
+    today = datetime.now()
+    if today.year != 2024 or today.month != 12:
         raise ValueError("File generation only works during December 2024")
     for day in args.day or range(1, today.day + 1):
         if 1 in args.part:

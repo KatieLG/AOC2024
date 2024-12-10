@@ -32,10 +32,9 @@ class Day07(AOCSolution):
             )
 
     def is_equation_valid(self, total: int, numbers: list[int]) -> bool:
-        for value in self.possible_totals(numbers[0], numbers[1:]):
-            if value == total:
-                return True
-        return False
+        return any(
+            value == total for value in self.possible_totals(numbers[0], numbers[1:])
+        )
 
     def part_one(self) -> int:
         return sum(
