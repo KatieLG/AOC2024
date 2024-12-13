@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-from math import lcm
 
 from models.aoc_solution import AOCSolution
 
@@ -19,14 +18,13 @@ class Day13(AOCSolution):
         ]
 
     def min_cost(self, machine: tuple[int, ...]) -> int:
+        """Solve equations for button presses"""
         ax, ay, bx, by, tx, ty = machine
-        lcmx = lcm(ax, ay)
-        mx, my = lcmx // ax, lcmx // ay
-        coef_y = bx * mx - by * my
-        total = tx * mx - ty * my
+        coef = bx * ay - by * ax
+        total = tx * ay - ty * ax
 
-        if total % coef_y == 0:
-            b_uses = total // coef_y
+        if total % coef == 0:
+            b_uses = total // coef
             remaining = tx - b_uses * bx
             if remaining % ax == 0:
                 return 3 * remaining // ax + b_uses
