@@ -1,3 +1,4 @@
+import sys
 from abc import ABC, abstractmethod
 from enum import Enum
 from pathlib import Path
@@ -29,7 +30,8 @@ class AOCSolution(ABC):
     def part_two(self) -> int: ...
 
     def run(self) -> None:
-        for dataset in Dataset:
+        iterable = [Dataset.SAMPLE] if "--sample" in sys.argv else Dataset
+        for dataset in iterable:
             print(dataset.value.capitalize())
             for part in ["part_one", "part_two"]:
                 self.set_data(part, dataset)

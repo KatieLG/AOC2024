@@ -18,5 +18,8 @@ today-p2:
 run:
 	uv run python -m solutions.day_$(day)
 
+sample:
+	uv run python -m solutions.day_$(day) --sample
+
 profile:
 	uv run python -m cProfile -s tottime solutions/day_$(day).py
