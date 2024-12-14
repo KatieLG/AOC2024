@@ -23,12 +23,12 @@ class Day14(AOCSolution):
     def part_one(self) -> int:
         """Find product of robots in each quadrant after 100 moves"""
         ends = [
-            ((x + dx * 100) % width, (y + dy * 100) % height)
+            ((x + dx * 100) % self.width, (y + dy * 100) % self.height)
             for x, y, dx, dy in self.robots
         ]
         lu = ru = ld = rd = 0
-        mw = width // 2
-        mh = height // 2
+        mw = self.width // 2
+        mh = self.height // 2
         for x, y in ends:
             lu += x < mw and y < mh
             ru += x > mw and y < mh
