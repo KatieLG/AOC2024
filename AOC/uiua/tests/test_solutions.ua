@@ -21,53 +21,65 @@ GetSolution ← get⊙SolutionMap
 
 TestDay ← (
   ⟜(&p $"Executing tests for day _" ↙₋₂$"0_")
-  GetSolution⊙(⇌⊟) # get the actual solution
-  ⍤.≍              # assert matching
+  GetSolution⊙(⇌⊟)                              # get the actual solution
+  ⍤.≍                                           # assert matching
+  &p $"Tests passed with runtime: _s\n" ⁅₃¯-now # output runtime
 )
 SkipDay ← (
-  &p $"Skipping tests for day _: _" ↙₋₂$"0_" # skip with reason
+  &p $"Skipping tests for day _: _\n" ↙₋₂$"0_" # skip with reason
 )
 
 # ---- Tests -----
+now
 ~ "../solutions/day01.ua"
 TestDay 1
 
+now
 ~ "../solutions/day02.ua"
 TestDay 2
 
+now
 ~ "../solutions/day03.ua"
 TestDay 3
 
+now
 ~ "../solutions/day04.ua"
 TestDay 4
 
+now
 ~ "../solutions/day05.ua"
 TestDay 5
 
 # TODO
 SkipDay 6 "runtime is too long"
 
+now
 ~ "../solutions/day07.ua"
 TestDay 7
 
+now
 ~ "../solutions/day08.ua"
 TestDay 8
 
 # TODO
 SkipDay 9 "Missing part b"
 
+now
 ~ "../solutions/day10.ua"
 TestDay 10
 
+now
 ~ "../solutions/day11.ua"
 TestDay 11
 
 # TODO
 SkipDay 12 "Not done yet"
 
+now
 ~ "../solutions/day13.ua"
 TestDay 13
 
+now
 ~ "../solutions/day14.ua"
 TestDay 14
 
