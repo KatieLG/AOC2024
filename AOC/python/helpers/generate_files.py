@@ -59,21 +59,21 @@ def save_data(data: str, *, day: int, is_sample: bool = False, part: int = 1) ->
     else:
         file_path = Path(data_path, "dataset.txt")
 
-    file_path.write_text(data)
-    logger.info(f"Successfully saved to {file_path}")
+    file_path.write_text(data, encoding="utf-8")
+    logger.info("Successfully saved to %s", file_path)
 
 
 def generate_sample(day: int, part: int) -> None:
     """Scrape page from AOC website for the sample data. Assume it is the largest code block"""
     url = f"{BASE_URL}/day/{day}"
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(url, headers=HEADERS, timeout=10)
     response.raise_for_status()
 
     soup = BeautifulSoup(response.content, "html.parser")
     code_blocks = [element.text for element in soup.find_all("code")]
 
     if not code_blocks:
-        logger.warning(f"No code blocks found for day {day}")
+        logger.warning("No code blocks found for day %d", day)
 
     longest = max(code_blocks, key=len, default="")
     save_data(longest, day=day, is_sample=True, part=part)
@@ -82,7 +82,7 @@ def generate_sample(day: int, part: int) -> None:
 def generate_data(day: int) -> None:
     """Fetches the input data for a given day from the AOC website"""
     url = f"{BASE_URL}/day/{day}/input"
-    response = requests.get(url, headers=HEADERS)
+    response = requests.get(url, headers=HEADERS, timeout=10)
     response.raise_for_status()
 
     input_data = response.text
@@ -95,15 +95,17 @@ def generate_initial_files(day: int) -> None:
     Populates both part-1 and part-2 sample data with the longest code block,
     so if they are the same, no extra cli command is required
     """
-    logger.info(f"Generating files for day {day}")
+    logger.info("Generating files for day %d", day)
 
     python_path = Path(ROOT, f"python/solutions/day_{day:02d}.py")
     if not python_path.exists():
-        python_path.write_text(TEMPLATE.replace("<DAY>", f"{day:02d}"))
-        logger.info(f"Created solution file: {python_path}")
+        python_path.write_text(
+            TEMPLATE.replace("<DAY>", f"{day:02d}"), encoding="utf-8"
+        )
+        logger.info("Created solution file: %s", python_path)
 
     generate_sample(day, part=1)
     generate_sample(day, part=2)
     generate_data(day)
 
-    logger.info(f"Successfully generated all files for day {day}")
+    logger.info("Successfully generated all files for day %d", day)
