@@ -1,5 +1,5 @@
 from typing import Generator
-from copy import deepcopy
+
 from models.aoc_solution import AOCSolution
 
 
@@ -80,16 +80,16 @@ class Day15(AOCSolution):
         if dx:
             self._move_big_box_horizontally(dx, dy)
         else:
-            # TODO: fix grid being updated when obstructions are present
-            backup = deepcopy(self.grid)
             try:
                 x, y = self.pos
                 bx = x if self.grid[y + dy][x] == "[" else x - 1
-                for bx, by, dy in self._move_big_box_vertically(bx, y + dy, dy):
-                    self._complete_move(bx, by, dy)
+                moves = self._move_big_box_vertically(bx, y + dy, dy)
+                unique_moves = list(dict.fromkeys(moves))
             except GridError:
-                self.grid = backup
                 return
+
+            for bx, by, dy in unique_moves:
+                self._complete_move(bx, by, dy)
             self.goto(x + dx, y + dy)
 
     def _move_big_box_horizontally(self, dx: int, dy: int) -> None:
@@ -117,6 +117,7 @@ class Day15(AOCSolution):
         Vertical movement might push numerous boxes simultaneously
         This function expects to be provided the left side of the box
         Yields the series of box moves to be performed if there are no obstructions
+        This may contain duplicates which need removing
         """
         # base case, no obstructions
         if self.grid[by + dy][bx] == "." and self.grid[by + dy][bx + 1] == ".":
@@ -174,7 +175,6 @@ class Day15(AOCSolution):
         self.pos = self.get_pos("@")
         for p in self.parsed_moves:
             self.move(*p)
-        self.debug()
         return self.gps_sum()
 
 
