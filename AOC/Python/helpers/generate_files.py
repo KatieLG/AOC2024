@@ -19,7 +19,7 @@ if not COOKIE:
     raise EnvironmentError("An AOC COOKIE in your .env is required for this to run")
 
 BASE_URL = "https://adventofcode.com/2024"
-ROOT = Path(__file__).parent.parent
+ROOT = Path(__file__).parent.parent.parent
 HEADERS = {
     "Content-type": "application/json",
     "Accept": "text/html",
@@ -97,7 +97,7 @@ def generate_initial_files(day: int) -> None:
     """
     logger.info(f"Generating files for day {day}")
 
-    python_path = Path(ROOT, f"solutions/day_{day:02d}.py")
+    python_path = Path(ROOT, f"python/solutions/day_{day:02d}.py")
     if not python_path.exists():
         python_path.write_text(TEMPLATE.replace("<DAY>", f"{day:02d}"))
         logger.info(f"Created solution file: {python_path}")

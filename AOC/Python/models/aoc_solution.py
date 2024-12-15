@@ -12,7 +12,7 @@ class Dataset(Enum):
 class AOCSolution(ABC):
     def __init__(self) -> None:
         self.day = int(self.__class__.__name__.replace("Day", ""))
-        self.root = Path(__file__).parent.parent
+        self.root = Path(__file__).parent.parent.parent
         self.data = ""
 
     def set_data(self, part: str, dataset: Dataset) -> None:
