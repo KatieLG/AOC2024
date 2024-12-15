@@ -20,6 +20,7 @@ SolutionMap ← map+1⇡15 Expected
 GetSolution ← get⊙SolutionMap
 
 TestDay ← (
+  ⟜(&p $"Executing tests for day _" ↙₋₂$"0_")
   GetSolution⊙(⇌⊟) # get the actual solution
   ⍤.≍              # assert matching
 )
@@ -33,3 +34,44 @@ TestDay 2
 
 ~ "../solutions/day03.ua"
 TestDay 3
+
+~ "../solutions/day04.ua"
+TestDay 4
+
+~ "../solutions/day05.ua"
+TestDay 5
+
+# TODO - improve runtime
+# ~ "../solutions/day06.ua"
+# TestDay 6
+
+~ "../solutions/day07.ua"
+TestDay 7
+
+~ "../solutions/day08.ua"
+TestDay 8
+
+# TODO - part b
+# ~ "../solutions/day09.ua"
+# TestDay 9
+
+~ "../solutions/day10.ua"
+TestDay 10
+
+# TODO - check why recursion limit is being exceeded
+# ~ "../solutions/day11.ua"
+# TestDay 11
+
+# TODO
+# ~ "../solutions/day12.ua"
+# TestDay 12
+
+~ "../solutions/day13.ua"
+TestDay 13
+
+~ "../solutions/day14.ua"
+TestDay 14
+
+# TODO
+# ~ "../solutions/day15.ua"
+# TestDay 15

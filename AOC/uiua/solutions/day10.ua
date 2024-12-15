@@ -1,5 +1,3 @@
-# Experimental!
-
 ~ "../helpers/input.ua" ~ ReadInput
 
 Input ← (
@@ -17,9 +15,8 @@ Nbrs ← (
   ▽:⊙(=1-:)     # keep moves which are 1 increase
 )
 Trails ← (
-  astar(
+  path(
     Nbrs # Neighbours have equal cost
-  | 0    # heuristic of 0
   | =9⊡  # keep going until finding a 9
   )
   ⊙◌ # discard cost

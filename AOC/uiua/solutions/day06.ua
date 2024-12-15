@@ -1,9 +1,7 @@
-# Experimental!
 ~ "../helpers/input.ua" ~ ReadInput
 
 Input ← (
   ReadInput "day_06"
-  ▽≠,@\r  # remove carriage return
   ⊜∘≠,@\n # split on newlines
 )
 
@@ -20,9 +18,8 @@ Neis ← (
 )
 FindPath ← (
   ⊂[¯1 0]⊢⊚⊸⌕@^ # start pos and direction
-  °□⊢ astar(
+  °□⊢ path(
     1¤⊢Neis  # neighbours with no rotation = lowest cost
-  | 0        # heuristic of 0
   | ¬Valid↘₂ # keep going until out of grid
   )
   ⊙◌  # discard the cost
@@ -34,9 +31,9 @@ IsLoop ← (
 
 # Part A
 ◴≡↘₂FindPath Input # unique path positions
-⟜(&p⧻)             # count (keep positions for part B)
+⟜⧻                 # count (keep positions for part B)
 
 # Part B
 ≡⍜⊡⋅@#⊙[Input] # put obstacles in each part A position
 ↘1             # but not starting position
-&p/+≡IsLoop    # sum up the loops
+/+≡IsLoop      # sum up the loops
