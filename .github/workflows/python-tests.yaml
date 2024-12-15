@@ -1,0 +1,39 @@
+name: Python tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./AOC/python
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+          python-version-file: './AOC/python/pyproject.toml'
+
+    - name: Set up Python
+      run: uv python install
+
+    - name: Install requirements
+      run: uv sync
+
+    - name: Lint
+      run: make lint
+
+    - name: Test
+      run: make test
