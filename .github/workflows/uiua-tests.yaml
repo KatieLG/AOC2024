@@ -1,0 +1,30 @@
+name: Uiua tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./AOC/uiua
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Rust and Cargo
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Install Uiua
+      run: cargo install --git https://github.com/uiua-lang/uiua uiua
+
+    - name: Run uiua tests
+      run: uiua run tests/test_solutions.ua
