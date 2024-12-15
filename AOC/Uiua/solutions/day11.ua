@@ -1,5 +1,7 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Input ← (
-  &fras "./data/day11.txt"
+  ReadInput "day_11"
   ⊜⋕≠,@  # convert to numbers
 )
 

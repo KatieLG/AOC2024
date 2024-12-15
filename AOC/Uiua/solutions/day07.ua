@@ -1,8 +1,9 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Parse ← ⊜⍣⋕(□⊜⋕≠,@ )≠,@: # parse line
 Input ← (
-  &fras "./data/day07.txt"
-  ▽≠,@\r
-  ⊜Parse≠,@\n
+  ReadInput "day_07"
+  ⊜Parse≠,@\n # split on newlines and parse
 )
 
 Totals ← ≡⊢Input

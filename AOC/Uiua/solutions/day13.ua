@@ -1,6 +1,8 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Match ← /◇⊂⍚⋕♭regex "\\d+" # find numbers
 Input ← (
-  &fras "./data/day13.txt"
+  ReadInput "day_13"
   ⊜Match¬⦷"\n\n". # split by double newline
 )
 

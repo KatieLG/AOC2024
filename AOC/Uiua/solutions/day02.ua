@@ -1,12 +1,14 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Data ← (
-  &fras "./data/day02.txt"
+  ReadInput "day_02"
   ⊜□≠,@\n   # split into lines
   ⍚(⊜⋕≠,@ ) # split each line into list of numbers
 )
 
-Inc     ← /↧↧⊃<₄>₀≡/-◫2 # increasing by increments of 1-3
-Safe    ← ↥∩Inc⟜⇌       # if list or reverse are increasing
-Subsets ← ≡⍜↻↘₁⊙¤°⊏     # subsets with 1 item removed
+Inc     ← /↧↧⊃<₄>₀≡/-⧈∘2 # increasing by increments of 1-3
+Safe    ← ↥∩Inc⟜⇌        # if list or reverse are increasing
+Subsets ← ≡⍜↻↘₁⊙¤°⊏      # subsets with 1 item removed
 
 SafeRemoved ← ↥/↥≡Safe Subsets⟜Safe # if safe with removal
 

@@ -1,13 +1,16 @@
 # Experimental!
+
+~ "../helpers/input.ua" ~ ReadInput
+
 Input ← (
-  &fras "./data/day10.txt"
+  ReadInput "day_10"
   ⊜∵⋕≠,@\n # convert to number grid
 )
 
-W      ← ⧻⊢Input
-H      ← ⧻Input
-Valid  ← /↧[⊃⊓(<W|<H)∩≥₀]°⊟ # is point within grid
-Moves  ← ▽⊸≡Valid+⊙¤        # get valid neighbouring moves round a point
+W     ← ⧻⊢Input
+H     ← ⧻Input
+Valid ← /↧[⊃⊓(<W|<H)∩≥₀]°⊟ # is point within grid
+Moves ← ▽⊸≡Valid+⊙¤        # get valid neighbouring moves round a point
 Nbrs ← (
   [∩¯,,⇌.⇡2]    # each direction
   ⊃(⟜⊡Moves|⋅⊡) # get grid values at current coord and valid moves

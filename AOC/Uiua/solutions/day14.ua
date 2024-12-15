@@ -1,6 +1,8 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Match ← /◇⊂⍚⋕♭regex "-?\\d+" # find numbers
 Input ← (
-  &fras "./data/day14.txt"
+  ReadInput "day_14"
   ⊜Match≠,@\n # split by newline
 )
 Pos ← ≡↙₂Input
@@ -9,9 +11,9 @@ W   ← 101   # width
 H   ← 103   # height
 B   ← [W H] # bounds
 
-Move   ← ≡(◿B)+Pos×Dir   # Move some number of times
-Disp   ← ⬚0+↯[H W]0°⊚≡⇌  # display grid
-Loc!   ← ◿^0+×⇡⊙(∩¤⊃⊣⊢⍉) # locations over a number of moves
+Move ← ≡(◿B)+Pos×Dir   # Move some number of times
+Disp ← ⬚0+↯[H W]0°⊚≡⇌  # display grid
+Loc! ← ◿^0+×⇡⊙(∩¤⊃⊣⊢⍉) # locations over a number of moves
 Lines! ← (
   Loc!^0 1000 # Get locations over 1000 moves
   ≡(/↥⊕⧻.⍆)   # maximum amount lining up

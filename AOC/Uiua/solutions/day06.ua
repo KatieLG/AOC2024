@@ -1,6 +1,8 @@
 # Experimental!
+~ "../helpers/input.ua" ~ ReadInput
+
 Input ← (
-  &fras "./data/day06.txt"
+  ReadInput "day_06"
   ▽≠,@\r  # remove carriage return
   ⊜∘≠,@\n # split on newlines
 )

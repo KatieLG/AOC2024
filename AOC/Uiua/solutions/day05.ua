@@ -1,5 +1,7 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Input ← (
-  &fras "./data/day05.txt"
+  ReadInput "day_05"
   ⊜□¬⦷"\n\n". # split by double newline
 )
 

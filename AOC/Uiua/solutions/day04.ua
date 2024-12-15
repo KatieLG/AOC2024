@@ -1,6 +1,8 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Input ← (
-  &fras "./data/day04.txt"
-  ⊜∘≠,@\n # split on newlines
+  ReadInput "day_04" # input
+  ⊜∘≠,@\n            # split on newlines
 )
 
 TD ← ⍉≡⬚@.↻⇡⧻.    # Top Left diagonals
@@ -19,6 +21,6 @@ Count"XMAS" # count occurences of XMAS in each
 
 # Part B
 Input
-♭₃◫3_3           # get 3x3 windows 
+♭₃⧈∘3_3          # get 3x3 windows 
 ≡(=2Count"MAS"D) # 2 occurences of MAS on diagonals = X-MAS    
 /+               # total occurences

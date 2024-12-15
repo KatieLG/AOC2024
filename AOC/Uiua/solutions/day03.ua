@@ -1,6 +1,6 @@
-Input ← (
-  &fras "./data/day03.txt"
-)
+~ "../helpers/input.ua" ~ ReadInput
+
+Input ← ReadInput "day_03"
 
 ProductsRegex ← "mul\\((\\d+),(\\d+)\\)" # matches multiplications
 Match         ← ≡↘₁⬚@ regex              # get matches for a regex pattern

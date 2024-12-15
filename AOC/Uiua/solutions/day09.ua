@@ -1,4 +1,6 @@
-Input ← &fras "./data/day09.txt"
+~ "../helpers/input.ua" ~ ReadInput
+
+Input ← ReadInput "day_09"
 
 Parse ← (
   ∵⋕          # convert to numbers

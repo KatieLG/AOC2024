@@ -1,6 +1,8 @@
+~ "../helpers/input.ua" ~ ReadInput
+
 Data ← (
-  &fras "./data/day01.txt" # input
-  ⊜(⊜⋕≠,@ )≠,@\n           # split on newlines & spaces per line
+  ReadInput "day_01"
+  ⊜(⊜⋕≠,@ )≠,@\n # split on newlines & spaces per line
 )
 
 A ← ⊡0⍉Data # first col
