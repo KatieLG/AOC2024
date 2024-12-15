@@ -53,10 +53,7 @@ class Day12(AOCSolution):
 
     def perimeter(self, group: list[Coord]) -> int:
         """Use nbrs to determine how many sides need covering."""
-        perimeter = 0
-        for x, y in group:
-            perimeter += 4 - len(self.nbrs(x, y))
-        return perimeter
+        return sum(4 - len(self.nbrs(x, y)) for x, y in group)
 
     def lines(self, group: list[Coord]) -> tuple[set[Coord], set[Coord]]:
         """Find the horizontal and vertical lines for a particular group."""
@@ -70,43 +67,32 @@ class Day12(AOCSolution):
         vlines = {(min(x, x2), max(x, x2)) for x, y, x2, y2 in boundaries if y == y2}
         return hlines, vlines
 
+    def count_segments(
+        self, group: list[Coord], lines: set[Coord], is_horizontal: bool
+    ):
+        total = 0
+        r = 1 if is_horizontal else -1
+        for a, b in lines:
+            segments = []
+            for i in range(self.width if is_horizontal else self.height):
+                if ((i, a)[::r] in group) != ((i, b)[::r] in group):
+                    if segments:
+                        prev = (i - 1, a)[::r] in group and (i - 1, b)[::r] not in group
+                        curr = (i, a)[::r] in group and (i, b)[::r] not in group
+                        last = segments[-1]
+                        if last[-1] == i - 1 and prev == curr:
+                            last.append(i)
+                            continue
+                    segments.append([i])
+            total += len(segments)
+        return total
+
     def sides(self, group: list[Coord]) -> int:
         """Find number of sides, by using the lines, and searching for gaps within them."""
         hlines, vlines = self.lines(group)
-        total = 0
-        for y, y2 in hlines:
-            segments = []
-            for x in range(self.width):
-                if ((x, y) in group) != ((x, y2) in group):
-                    if not segments:
-                        segments.append([x])
-                    else:
-                        last = segments[-1]
-                        # check continuity but not just across, also above, below
-                        above_prev = (x - 1, y) in group and (x - 1, y2) not in group
-                        above = (x, y) in group and (x, y2) not in group
-                        if last[-1] == x - 1 and above_prev == above:
-                            last.append(x)
-                        else:
-                            segments.append([x])
-            total += len(segments)
-        for x, x2 in vlines:
-            segments = []
-            for y in range(self.height):
-                if ((x, y) in group) != ((x2, y) in group):
-                    if not segments:
-                        segments.append([y])
-                    else:
-                        last = segments[-1]
-                        # check continuity but not just across, also left right
-                        left_prev = (x, y - 1) in group and (x2, y - 1) not in group
-                        left = (x, y) in group and (x2, y) not in group
-                        if last[-1] == y - 1 and left_prev == left:
-                            last.append(y)
-                        else:
-                            segments.append([y])
-            total += len(segments)
-        return total
+        return self.count_segments(group, hlines, True) + self.count_segments(
+            group, vlines, False
+        )
 
     def part_one(self) -> int:
         """Sum the areas"""
