@@ -5,10 +5,10 @@ Input ← (
   ⊜∵⋕≠,@\n # convert to number grid
 )
 
-W     ← ⧻⊢Input
-H     ← ⧻Input
-Valid ← /↧[⊃⊓(<W|<H)∩≥₀]°⊟ # is point within grid
-Moves ← ▽⊸≡Valid+⊙¤        # get valid neighbouring moves round a point
+W      ← ⧻⊢Input
+H      ← ⧻Input
+Valid  ← /↧[⊃⊓(<W|<H)∩≥₀]°⊟ # is point within grid
+Moves  ← ▽⊸≡Valid+⊙¤        # get valid neighbouring moves round a point
 Nbrs ← (
   [∩¯,,⇌.⇡2]    # each direction
   ⊃(⟜⊡Moves|⋅⊡) # get grid values at current coord and valid moves

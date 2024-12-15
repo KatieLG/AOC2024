@@ -24,6 +24,9 @@ TestDay ← (
   GetSolution⊙(⇌⊟) # get the actual solution
   ⍤.≍              # assert matching
 )
+SkipDay ← (
+  &p $"Skipping tests for day _: _" ↙₋₂$"0_" # skip with reason
+)
 
 # ---- Tests -----
 ~ "../solutions/day01.ua"
@@ -41,9 +44,8 @@ TestDay 4
 ~ "../solutions/day05.ua"
 TestDay 5
 
-# TODO - improve runtime
-# ~ "../solutions/day06.ua"
-# TestDay 6
+# TODO
+SkipDay 6 "runtime is too long"
 
 ~ "../solutions/day07.ua"
 TestDay 7
@@ -51,20 +53,17 @@ TestDay 7
 ~ "../solutions/day08.ua"
 TestDay 8
 
-# TODO - part b
-# ~ "../solutions/day09.ua"
-# TestDay 9
+# TODO
+SkipDay 9 "Missing part b"
 
 ~ "../solutions/day10.ua"
 TestDay 10
 
-# TODO - check why recursion limit is being exceeded
-# ~ "../solutions/day11.ua"
-# TestDay 11
+~ "../solutions/day11.ua"
+TestDay 11
 
 # TODO
-# ~ "../solutions/day12.ua"
-# TestDay 12
+SkipDay 12 "Not done yet"
 
 ~ "../solutions/day13.ua"
 TestDay 13
@@ -73,5 +72,4 @@ TestDay 13
 TestDay 14
 
 # TODO
-# ~ "../solutions/day15.ua"
-# TestDay 15
+SkipDay 15 "Not done yet"

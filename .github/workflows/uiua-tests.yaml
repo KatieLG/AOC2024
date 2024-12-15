@@ -28,3 +28,5 @@ jobs:
 
     - name: Run uiua tests
       run: uiua run tests/test_solutions.ua
+      env:
+        UIUA_RECURSION_LIMIT: 1000
