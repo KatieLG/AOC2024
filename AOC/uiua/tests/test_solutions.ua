@@ -14,9 +14,10 @@ Expected ← (
    [31589 98080815200063]          # day 13
    [222208000 7623]                # day 14
    [1406628 1432781]               # day 15
+   [85420 492]                     # day 16
   ]
 )
-SolutionMap ← map+1⇡15 Expected
+SolutionMap ← map+1⇡⊸⧻Expected
 GetSolution ← get⊙SolutionMap
 
 TestDay ← (
@@ -85,3 +86,7 @@ TestDay 14
 
 # TODO
 SkipDay 15 "Not done yet"
+
+now
+~ "../solutions/day16.ua"
+TestDay 16

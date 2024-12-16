@@ -27,10 +27,15 @@ Solve ← (
     Moves  # Pick from moves with costs
   | ≍End↙₂ # keep going until on the Ending
   )
-  ◌ # discard the paths, keeping only the cost
 )
 
 # Part A
 Input      # Grid
 ⊂Start Dir # Start position and start direction
-Solve      # solve for cost
+◌Solve     # solve and discard paths for cost only
+
+# Part A
+Input      # Grid
+⊂Start Dir # Start position and start direction
+⊙◌Solve    # solve and discard cost for paths
+⧻◴≡↙₂/◇⊂   # find all points that lie on a best path
