@@ -18,7 +18,7 @@ class Position(NamedTuple):
 class Day16(AOCSolution):
     EXPECTED = {
         "part_one": {"sample": 11048, "data": 85420},
-        "part_two": {"sample": 0, "data": 0},
+        "part_two": {"sample": 64, "data": 492},
     }
 
     def __post_init__(self) -> None:
@@ -50,13 +50,26 @@ class Day16(AOCSolution):
     ) -> None:
         """Path through the maze marking all tiles with costs"""
         for cost, nbr in self.nbrs(position):
-            if current_cost + cost < costs[nbr.y][nbr.x]:
+            if not costs[nbr.y][nbr.x] or current_cost + cost < costs[nbr.y][nbr.x]:
                 costs[nbr.y][nbr.x] = cost + current_cost
                 self.path(nbr, costs, cost + current_cost)
 
+    def reverse_path_collect(
+        self,
+        position: Position,
+        costs: list[list[int | None]],
+        valid_cells: set[Coord],
+        current_cost: int,
+    ):
+        """Collect cells of valid shortest paths in reverse"""
+        valid_cells.add((position.x, position.y))
+        for cost, nbr in self.nbrs(position):
+            if not costs[nbr.y][nbr.x] or costs[nbr.y][nbr.x] <= current_cost - cost:
+                self.reverse_path_collect(nbr, costs, valid_cells, current_cost - cost)
+
     def generate_costs(self, start_coord: Coord, start_dir: Coord) -> list[list[int]]:
         """Generate a grid of the costs to go from the start position to any other"""
-        costs = [[int(1e5 - 1) for _ in row] for row in self.grid]
+        costs: list[list[int | None]] = [[None for _ in row] for row in self.grid]
         start_position = Position(*start_coord, *start_dir)
         costs[start_position.y][start_position.x] = 0
         self.path(start_position, costs)
@@ -67,7 +80,15 @@ class Day16(AOCSolution):
         return costs[self.end[1]][self.end[0]]
 
     def part_two(self) -> int:
-        return 0
+        """Find costs from start to end, then flood fill in reverse
+        keeping only the shortest ones"""
+        costs = self.generate_costs(self.start, self.direction)
+        min_cost = costs[self.end[1]][self.end[0]]
+        valid_cells = set()
+        self.reverse_path_collect(
+            Position(*self.end, 0, 1), costs, valid_cells, min_cost
+        )
+        return len(valid_cells)
 
 
 if __name__ == "__main__":
