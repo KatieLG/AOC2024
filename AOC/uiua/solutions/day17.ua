@@ -42,3 +42,14 @@ RunProgram ← (
 # Part A
 RunProgram [RA RB RC]
 /$"_,_"
+
+# Part B
+[0 1] # valid
+0     # index
+⍢(+₁⟜(
+    ¤↙⊙P-1¯                    # find program from -i onwards
+    ◴♭⊞+⇡8×8:                  # get the possible options for a
+    ▽:⟜≡(≍RunProgram⊂⊙[RB RC]) # keep valid ones
+  )
+| <⧻P)
+⋅⊢ # return the first valid a value

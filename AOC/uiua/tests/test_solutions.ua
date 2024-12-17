@@ -1,20 +1,21 @@
 Expected ← (
-  [[2000468 18567089]              # day 1
-   [242 311]                       # day 2
-   [181345830 98729041]            # day 3
-   [2575 2041]                     # day 4
-   [4662 5900]                     # day 5
-   [4374 1705]                     # day 6
-   [2664460013123 426214131924213] # day 7
-   [222 884]                       # day 8
-   [6378826667552 6413328569890]   # day 9
-   [430 928]                       # day 10
-   [212655 253582809724830]        # day 11
-   [1473408 886364]                # day 12
-   [31589 98080815200063]          # day 13
-   [222208000 7623]                # day 14
-   [1406628 1432781]               # day 15
-   [85420 492]                     # day 16
+  [{2000468 18567089}                   # day 1
+   {242 311}                            # day 2
+   {181345830 98729041}                 # day 3
+   {2575 2041}                          # day 4
+   {4662 5900}                          # day 5
+   {4374 1705}                          # day 6
+   {2664460013123 426214131924213}      # day 7
+   {222 884}                            # day 8
+   {6378826667552 6413328569890}        # day 9
+   {430 928}                            # day 10
+   {212655 253582809724830}             # day 11
+   {1473408 886364}                     # day 12
+   {31589 98080815200063}               # day 13
+   {222208000 7623}                     # day 14
+   {1406628 1432781}                    # day 15
+   {85420 492}                          # day 16
+   {"1,5,0,1,7,4,1,0,3" 47910079998866} # day 17
   ]
 )
 SolutionMap ← map+1⇡⊸⧻Expected
@@ -22,10 +23,14 @@ GetSolution ← get⊙SolutionMap
 
 TestDay ← (
   ⟜(&p $"Executing tests for day _" ↙₋₂$"0_")
-  GetSolution⊙(⇌⊟)                              # get the actual solution
-  ⍤.≍                                           # assert matching
+  ⊙:
+  GetSolution                                   # get the actual solution
+  ⊙:∩°□⊃⊢⊣                                      # align with outputs
+  ⍤.≍                                           # assert part a is correct
+  ⍤.≍                                           # assert part b is correct
   &p $"Tests passed with runtime: _s\n" ⁅₃¯-now # output runtime
 )
+
 SkipDay ← (
   &p $"Skipping tests for day _: _\n" ↙₋₂$"0_" # skip with reason
 )
@@ -90,3 +95,7 @@ SkipDay 15 "Not done yet"
 now
 ~ "../solutions/day16.ua"
 TestDay 16
+
+now
+~ "../solutions/day17.ua"
+TestDay 17
