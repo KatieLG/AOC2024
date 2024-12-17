@@ -14,6 +14,7 @@ class AOCSolution(ABC):
         self.day = int(self.__class__.__name__.replace("Day", ""))
         self.root = Path(__file__).parent.parent.parent
         self.data = ""
+        self.sample = False
 
     def set_data(self, part: str, dataset: Dataset) -> None:
         folder = f"data/day_{self.day:02d}"
@@ -34,6 +35,7 @@ class AOCSolution(ABC):
     def run(self) -> None:
         iterable = [Dataset.SAMPLE] if "--sample" in sys.argv else Dataset
         for dataset in iterable:
+            self.sample = dataset.value == Dataset.SAMPLE.value
             print(dataset.value.capitalize())
             for part in ["part_one", "part_two"]:
                 self.set_data(part, dataset)
