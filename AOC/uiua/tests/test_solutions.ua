@@ -78,8 +78,9 @@ now
 ~ "../solutions/day11.ua"
 TestDay 11
 
-# TODO
-SkipDay 12 "Not done yet"
+now
+~ "../solutions/day12.ua"
+TestDay 12
 
 now
 ~ "../solutions/day13.ua"
