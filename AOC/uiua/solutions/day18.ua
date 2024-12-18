@@ -13,10 +13,27 @@ VC   ← /↧↧⊃(<D|≥0_0)  # valid coords
 VG   ← =0⊡            # valid in grid
 Nbrs ← ▽:⟜VG▽⊸≡VC+Ns¤ # valid neighbours
 
-Grid
-path(
-  Nbrs
-| ≍-1D
-)0_0
+Solve ← (
+  0_0 # start at 0_0
+  ⊢path(
+    Nbrs
+  | ≍-1D # end on bottom right of grid
+  )
+  -1⧻ # steps taken for shortest path
+)
+Solvable ← (
+  °⊚↙
+  ⍣(⋅1Solve)0 # is the grid solvable 
+)
 
--1⧻⊢
+# Part A
+Input
+°⊚↙1024 # 1024 bytes fall
+Solve
+
+# Part B
+Input
+1024            # start checking from 1024
+⍢(+15|Solvable) # check in steps of 15
+⍢(-1|¬Solvable) # narrow down to first problem byte
+/$"_,_"⊡        # coordinates

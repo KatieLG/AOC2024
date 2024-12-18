@@ -16,6 +16,7 @@ Expected ← (
    {1406628 1432781}                    # day 15
    {85420 492}                          # day 16
    {"1,5,0,1,7,4,1,0,3" 47910079998866} # day 17
+   {322 "60,21"}                        # day 18
   ]
 )
 SolutionMap ← map+1⇡⊸⧻Expected
@@ -100,3 +101,7 @@ TestDay 16
 now
 ~ "../solutions/day17.ua"
 TestDay 17
+
+now
+~ "../solutions/day18.ua"
+TestDay 18
