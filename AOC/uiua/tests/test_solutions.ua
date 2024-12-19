@@ -106,3 +106,7 @@ TestDay 17
 now
 ~ "../solutions/day18.ua"
 TestDay 18
+
+now
+~ "../solutions/day19.ua"
+TestDay 19
