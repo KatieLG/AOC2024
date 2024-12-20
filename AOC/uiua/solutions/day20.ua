@@ -5,13 +5,32 @@ Input ← (
   ⊜∘≠,@\n
 )
 
-Start  ← ⊢⊚⌕@SInput        # start position
-End    ← ⊢⊚⌕@EInput        # end position
-Ns     ← ▽≠@#:⟜⬚@#⊡+A₂¤    # valid neighbours
-Solve  ← -1⧻⊢path(Ns|≍End) # seconds to solve
-Cheats ← ≡⍜⊡⋅@.⊚=@#⟜¤      # generate all possible cheats
+Start ← ⊢⊚⌕@SInput          # start position
+End   ← ⊢⊚⌕@EInput          # end position
+Ns    ← ▽≠@#:⟜⊡+A₂¤         # valid neighbours
+Solve ← ⊢path(Ns|≍End)Start # solve maze
+Dist  ← /+⌵-                # grid distance between 2 points
+Saving! ← (
+  ⊃∩⊢∩↘₁    # get the distance score and each coordinate
+  :⊙Dist⌵-  # det grid distance and score distance
+  -∩×⟜:⊸≤^0 # only keep the savings for cheat lengths under the threshold
+)
 
-Input
-≡(Solve Start) Cheats # get the cheat times
--⟜/↥                  # compared to the normal time
-⧻▽⊸≥₁₀₀               # how many save at least 100 seconds
+Cheats! ← (
+  .≡⊂°⊏ # add distances to solution path
+  ⊞(
+    ◡(≤∩□)         # filter to upper quadrant to avoid doubling cheats
+    ⨬(0|Saving!^0) # get the savings for each pair
+  )
+  ♭
+)
+
+# Part A
+Solve Input # get solution
+Cheats!2    # get cheats of length at most 2
+/+≥100      # count how many are >= 100
+
+# Part B
+Solve Input # get solution
+Cheats!20   # get cheats of length at most 20
+/+≥100      # count how many are >= 100
