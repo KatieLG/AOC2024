@@ -10,6 +10,8 @@ class Dataset(Enum):
 
 
 class AOCSolution(ABC):
+    EXPECTED: dict[str, dict[str, str | int]]
+
     def __init__(self) -> None:
         self.day = int(self.__class__.__name__.replace("Day", ""))
         self.root = Path(__file__).parent.parent.parent
@@ -28,10 +30,10 @@ class AOCSolution(ABC):
     def __post_init__(self) -> None: ...
 
     @abstractmethod
-    def part_one(self) -> int: ...
+    def part_one(self) -> int | str: ...
 
     @abstractmethod
-    def part_two(self) -> int: ...
+    def part_two(self) -> int | str: ...
 
     def run(self) -> None:
         iterable = [Dataset.SAMPLE] if "--sample" in sys.argv else Dataset
