@@ -9,11 +9,9 @@ Start ← ⊢⊚⌕@SInput          # start position
 End   ← ⊢⊚⌕@EInput          # end position
 Ns    ← ▽≠@#:⟜⊡+A₂¤         # valid neighbours
 Solve ← ⊢path(Ns|≍End)Start # solve maze
-Dist  ← /+⌵-                # grid distance between 2 points
 Saving! ← (
-  ⊃∩⊢∩↘₁    # get the distance score and each coordinate
-  :⊙Dist⌵-  # det grid distance and score distance
-  -∩×⟜:⊸≤^0 # only keep the savings for cheat lengths under the threshold
+  ⊃(/+⌵-∩↘₁|⌵-∩⊢) # det grid distance and score distance
+  -∩×⟜:⊸≤^0       # only keep the savings for cheat lengths under the threshold
 )
 
 Cheats! ← (
