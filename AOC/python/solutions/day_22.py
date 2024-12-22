@@ -5,7 +5,7 @@ from models.aoc_solution import AOCSolution
 
 class Day22(AOCSolution):
     EXPECTED = {
-        "part_one": {"sample": 37327623, "data": 0},
+        "part_one": {"sample": 37327623, "data": 14726157693},
         "part_two": {"sample": 0, "data": 0},
     }
 
