@@ -18,6 +18,9 @@ Expected ← (
    {"1,5,0,1,7,4,1,0,3" 47910079998866} # day 17
    {322 "60,21"}                        # day 18
    {226 601201576113503}                # day 19
+   {1363 1007186}                       # day 20
+   {278748 ∞}                           # day 21
+   {14726157693 1614}                   # day 22
   ]
 )
 SolutionMap ← map+1⇡⊸⧻Expected
@@ -110,3 +113,9 @@ TestDay 18
 now
 ~ "../solutions/day19.ua"
 TestDay 19
+
+SkipDay 20 "Runtime is too long"
+
+SkipDay 21 "No solution"
+
+SkipDay 22 "Runtime is too long"

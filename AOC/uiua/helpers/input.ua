@@ -1,9 +1,14 @@
+Strip ↚ ▽≠,@\r # remove any carriage returns
+
 ReadInput ← (
   &fras $"../data/_/dataset.txt" # read data
-  ▽≠,@\r                         # remove any carriage returns
+  Strip
 )
-
-ReadSample ← (
+ReadSample₁ ← (
   &fras $"../data/_/sample\_part\_one.txt" # read data
-  ▽≠,@\r                                   # remove any carriage returns
+  Strip
+)
+ReadSample₂ ← (
+  &fras $"../data/_/sample\_part\_two.txt" # read data
+  Strip
 )
