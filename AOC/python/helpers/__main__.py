@@ -28,7 +28,7 @@ submit_parser.add_argument(
     type=int,
     nargs="*",
     default=[],
-    choices=range(1, 25),
+    choices=range(1, 26),
     help="day to fetch data for",
 )
 submit_parser.add_argument(
