@@ -37,6 +37,9 @@ TestDay ← (
   &p $"Tests passed with runtime: _s\n" ⁅₃¯-now # output runtime
 )
 
+NoSolution ← "No Solution"
+TooLong    ← "Runtime too long"
+Missingb   ← "Missing part b"
 SkipDay ← (
   &p $"Skipping tests for day _: _\n" ↙₋₂$"0_" # skip with reason
 )
@@ -63,7 +66,7 @@ now
 TestDay 5
 
 # TODO
-SkipDay 6 "runtime is too long"
+SkipDay 6 TooLong
 
 now
 ~ "../solutions/day07.ua"
@@ -74,7 +77,7 @@ now
 TestDay 8
 
 # TODO
-SkipDay 9 "Missing part b"
+SkipDay 9 Missingb
 
 now
 ~ "../solutions/day10.ua"
@@ -97,7 +100,7 @@ now
 TestDay 14
 
 # TODO
-SkipDay 15 "Not done yet"
+SkipDay 15 NoSolution
 
 now
 ~ "../solutions/day16.ua"
@@ -115,11 +118,15 @@ now
 ~ "../solutions/day19.ua"
 TestDay 19
 
-SkipDay 20 "Runtime is too long"
+SkipDay 20 TooLong
 
-SkipDay 21 "No solution"
+SkipDay 21 NoSolution
 
-SkipDay 22 "Runtime is too long"
+SkipDay 22 TooLong
+
+SkipDay 23 NoSolution
+
+SkipDay 24 NoSolution
 
 now
 ~ "../solutions/day25.ua"
