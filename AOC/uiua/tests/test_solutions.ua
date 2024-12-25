@@ -21,6 +21,7 @@ Expected ← (
    {1363 1007186}                       # day 20
    {278748 ∞}                           # day 21
    {14726157693 1614}                   # day 22
+   {3065 "None"}                        # day 25
   ]
 )
 SolutionMap ← map+1⇡⊸⧻Expected
@@ -119,3 +120,8 @@ SkipDay 20 "Runtime is too long"
 SkipDay 21 "No solution"
 
 SkipDay 22 "Runtime is too long"
+
+now
+~ "../solutions/day25.ua"
+"None" # no part b for day 25
+TestDay 25
