@@ -1,5 +1,6 @@
 import contextlib
 import re
+from typing import Generator
 
 from models.aoc_solution import AOCSolution
 
@@ -40,7 +41,6 @@ class Day24(AOCSolution):
 
     def evaluate_gates(self, gates: dict[str, str]) -> dict[str, int]:
         wires = self.values.copy()
-        gates = gates.copy()
         while gates:
             for out, gate in list(gates.items()):
                 with contextlib.suppress(KeyError):
@@ -55,44 +55,41 @@ class Day24(AOCSolution):
             reverse=True,
         )
 
-    def unpack_gate(self, gate: str) -> str:
-        a, op, b = re.findall(r"(\w{3}) (AND|OR|XOR) (\w{3})", gate)[0]
-        if a[0] not in {"x", "y"}:
-            a = f"({self.unpack_gate(self.gates[a])})"
-        if b[0] not in {"x", "y"}:
-            b = f"({self.unpack_gate(self.gates[b])})"
-        op = {"AND": "&", "OR": "|", "XOR": "^"}[op]
-        return f"{a} {op} {b}"
-
-    def unpack_gates(self, gates: dict[str, str]) -> dict[str, str]:
-        """Perform replacements until only x and y gates remain"""
-        gates = gates.copy()
-        for key, value in gates.items():
-            gates[key] = self.strip(key, self.unpack_gate(value))
-        return gates
+    def gates_containing(
+        self, value: str
+    ) -> Generator[tuple[str, str, str], None, None]:
+        for gate in self.gates.values():
+            a, op, b = self.parse_gate(gate)
+            if value in {a, b}:
+                yield a, op, b
 
     def part_one(self) -> int:
-        wires = self.evaluate_gates(self.gates)
+        wires = self.evaluate_gates(self.gates.copy())
         z_values = self.prefixed_values("z", wires)
         values = "".join((value for _, value in z_values))
         return int(values, 2)
 
     def part_two(self) -> str:
-        bad = set()
-        for output, eq in self.gates.items():
-            a, op, b = re.findall(r"(\w{3}) (AND|OR|XOR) (\w{3})", eq)[0]
+        swap = set()
+        for output, gate in self.gates.items():
+            a, op, b = self.parse_gate(gate)
             if output[0] == "z" and op != "XOR" and output != "z45":
-                bad.add(output)
-            if op == "XOR" and all(x[0] not in {"x", "y", "z"} for x in [a, b, output]):
-                bad.add(output)
-            if (op == "AND" and "x00" not in [a, b]) or op == "XOR":
-                for out2, eq2 in self.gates.items():
-                    c, op2, d = re.findall(r"(\w{3}) (AND|OR|XOR) (\w{3})", eq2)[0]
-                    if output in {c, d} and (
-                        op2 == "OR" if op == "XOR" else op2 != "OR"
-                    ):
-                        bad.add(output)
-        return ",".join(sorted(bad))
+                # z gate but not an XOR gate
+                swap.add(output)
+            if output[0] != "z" and op == "XOR" and {a[0], b[0]} != {"x", "y"}:
+                swap.add(output)
+            if op == "XOR":
+                # OR gates cannot have XOR gates as input
+                for c, op2, d in self.gates_containing(output):
+                    if op2 == "OR":
+                        swap.add(output)
+            if op == "AND" and {a, b} != {"x00", "y00"}:
+                # Excluding the first one, can't have XOR gates with AND input
+                for c, op2, d in self.gates_containing(output):
+                    if op2 == "XOR":
+                        swap.add(output)
+
+        return ",".join(sorted(swap))
 
 
 if __name__ == "__main__":
