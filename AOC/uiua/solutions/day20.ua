@@ -10,25 +10,23 @@ End   ← ⊢⊚⌕@EInput          # end position
 Ns    ← ▽≠@#:⟜⊡+A₂¤         # valid neighbours
 Solve ← ⊢path(Ns|≍End)Start # solve maze
 Saving! ← (
-  ⊃(/+⌵-∩↘₁|⌵-∩⊢) # det grid distance and score distance
-  -∩×⟜:⊸≤^0       # only keep the savings for cheat lengths under the threshold
+  ⊃(/+⌵-∩↘₁|⌵-∩⊢)°⊟ # det grid distance and score distance
+  -∩×⟜:⊸≤^0         # only keep the savings for cheat lengths under the threshold
 )
+SolutionPath ← Solve Input
 
 Cheats! ← (
-  .≡⊂°⊏ # add distances to solution path
-  ⊞(
-    ◡(≤∩□)         # filter to upper quadrant to avoid doubling cheats
-    ⨬(0|Saving!^0) # get the savings for each pair
-  )
-  ♭
+  ≡⊂°⊏          # add distances to solution path
+  ⧅<2           # for each pair of coordinates on the path
+  ♭≡(Saving!^0) # what is the saving
 )
 
 # Part A
-Solve Input # get solution
-Cheats!2    # get cheats of length at most 2
-/+≥100      # count how many are >= 100
+SolutionPath
+Cheats!2 # get cheats of length at most 2
+/+≥100   # count how many are >= 100
 
 # Part B
-Solve Input # get solution
-Cheats!20   # get cheats of length at most 20
-/+≥100      # count how many are >= 100
+SolutionPath
+Cheats!20 # get cheats of length at most 20
+/+≥100    # count how many are >= 100
